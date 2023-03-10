@@ -11,6 +11,6 @@ curl -sS https://starship.rs/install.sh | sh
 echo 'eval "$(starship init bash)"' >> ~/.bashrc
 
 mkdir -p ~/.config
-cp terminal/starship.toml ~/.config/starship.toml
+cp terminal/starship/starship.toml ~/.config/starship.toml
 
 echo "Done. type source ~/.bashrc to reload your shell."

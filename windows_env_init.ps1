@@ -35,3 +35,5 @@ Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)
 # Install starship config
 mkdir -p ~/.config
 Copy-Item -Path terminal/starship/starship.toml -Destination "$HOME\.config\starship.toml" -Force
+
+echo "Done. Don't forget to select the patched Nerd Font in Microsoft Terminal."

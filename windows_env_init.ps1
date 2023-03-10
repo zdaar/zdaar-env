@@ -1,4 +1,20 @@
-# Make sure to install Fonts first
+# Check if we are admin, if not, exit
+if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    [System.Windows.Forms.Messagebox]::Show("This script needs to be run as administrator !");
+}
+
+# Install Fonts
+
+echo "Install fonts"
+$fonts = (New-Object -ComObject Shell.Application).Namespace(0x14)
+foreach ($file in Get-ChildItem ./envFonts/*.ttf) {
+    $fileName = $file.Name
+    if (-not(Test-Path -Path "C:\Windows\fonts\$fileName" )) {
+        echo $fileName
+        dir $file | % { $fonts.CopyHere($_.fullname) }
+    }
+}
+cp ./envFonts/*.ttf c:\windows\fonts\
 
 # Check for chocolatey and install it if it isnt.
 

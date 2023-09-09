@@ -33,7 +33,22 @@ choco install starship
 Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
 
 # Install starship config
-mkdir -p ~/.config
-Copy-Item -Path terminal/starship/starship.toml -Destination "$HOME\.config\starship.toml" -Force
+
+# Ensure the destination directory exists
+if (-not (Test-Path -Path "$HOME\.config")) {
+    New-Item -Path "$HOME\.config" -ItemType Directory
+}
+
+# Define source and destination paths for clarity
+$sourcePath = "terminal/starship/starship.toml"
+$destinationPath = "$HOME\.config\starship.toml"
+
+# Check if destination file doesn't exist or its content differs from the source
+if (-not (Test-Path -Path $destinationPath) -or (Get-FileHash -Path $sourcePath).Hash -ne (Get-FileHash -Path $destinationPath).Hash) {
+    Copy-Item -Path $sourcePath -Destination $destinationPath -Force
+    Write-Output "File copied to $destinationPath"
+} else {
+    Write-Output "No changes detected. File not copied."
+}
 
 echo "Done. Don't forget to select the patched Nerd Font in Microsoft Terminal."

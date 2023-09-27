@@ -4,6 +4,8 @@ alias vi='nvim'
 alias vim='nvim'
 alias xclip="xclip -selection c"
 alias python="python3"
+alias sync-vscode-settings="cp ~/.config/Code/User/{settings.json,keybindings.json} ~/repos/configs/zdaar-env/vscode"
+
 
 export OPENAI_API_KEY=
 
@@ -18,3 +20,4 @@ eval "$(starship init bash)"
 . /usr/share/autojump/autojump.sh
 setxkbmap -layout be -variant r03
 xmodmap ~/.Xmodmap
+

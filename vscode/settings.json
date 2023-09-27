@@ -55,7 +55,7 @@
     },
     // NICE TO HAVE
     { "before": ["leader", "w"], "commands": [":w!"] },
-    { "before": ["leader", "q"], "commands": [":q!"] },
+    { "before": ["leader", "q"], "commands": [":q "] },
     { "before": ["leader", "x"], "commands": [":x!"] },
 
     {
@@ -73,7 +73,7 @@
       "commands": ["vscode-harpoon.addEditor"]
     },
     {
-      "before": ["<leader>", "^"],
+      "before": ["<leader>", "$"],
       "commands": ["vscode-harpoon.editEditors"]
     },
     {
@@ -132,4 +132,3 @@
   "githubPullRequests.pullBranch": "never",
   "editor.inlineSuggest.enabled": true
 }
-

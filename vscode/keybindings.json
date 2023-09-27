@@ -117,6 +117,15 @@
     "key": "alt+z",
     "command": "workbench.action.toggleZenMode"
   },
+  {
+    "key": "alt+s",
+    "command": "workbench.files.action.collapseExplorerFolders",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "alt+1",
+    "command": "workbench.action.terminal.toggleTerminal"
+  },
   //
   //
   //
@@ -182,4 +191,3 @@
     "command": "-workbench.action.newWindow"
   }
 ]
-

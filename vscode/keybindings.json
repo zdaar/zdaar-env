@@ -81,7 +81,7 @@
     "when": "explorerViewletFocus"
   },
   {
-    "key": "shift+n",
+    "key": "alt+shift+n",
     "command": "workbench.action.newWindow",
     "when": "!explorerViewletFocus"
   },

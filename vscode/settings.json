@@ -9,8 +9,9 @@
   "zenMode.hideTabs": false,
   "editor.lineNumbers": "relative",
   "workbench.colorTheme": "GitHub Dark",
-  "editor.fontFamily": "'Droid Sans Mono', 'monospace', monospace",
-  "terminal.integrated.fontFamily": "monospace",
+  "editor.fontFamily": "'JetBrains Mono Nerd Font'",
+  "editor.fontSize": 15,
+  "terminal.integrated.fontFamily": "'MesloLGS NF'",
   "vsicons.dontShowNewVersionMessage": true,
   "workbench.editorAssociations": {
     "*.prisma": "default"

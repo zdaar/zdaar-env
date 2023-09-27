@@ -1,0 +1,20 @@
+alias qq='sgpt'
+alias hh=hstr
+alias vi='nvim'
+alias vim='nvim'
+alias xclip="xclip -selection c"
+alias python="python3"
+
+export OPENAI_API_KEY=
+
+# vi mode
+#set -o vi
+#bind 'set show-mode-in-prompt on'
+#bind '"\e[1 q": possible-completions'  # block cursor for normal mode
+#bind '"\e[5 q": self-insert'           # line cursor for insert mode
+#bind '"\e[5~": "\e"'
+
+eval "$(starship init bash)"
+. /usr/share/autojump/autojump.sh
+setxkbmap -layout be -variant r03
+xmodmap ~/.Xmodmap

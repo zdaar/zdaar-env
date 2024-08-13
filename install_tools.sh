@@ -16,6 +16,19 @@ add_or_update_bashrc() {
     fi
 }
 
+# Function to replace or add ls aliases
+replace_or_add_ls_alias() {
+    local alias_name="$1"
+    local exa_command="$2"
+    if grep -q "alias $alias_name=" ~/.bashrc; then
+        sed -i "s|alias $alias_name=.*|alias $alias_name=\"$exa_command\"|" ~/.bashrc
+        echo "Replaced alias $alias_name with exa equivalent"
+    else
+        echo "alias $alias_name=\"$exa_command\"" >> ~/.bashrc
+        echo "Added new alias $alias_name"
+    fi
+}
+
 # Install and configure xclip
 if ! command_exists xclip; then
     echo "Installing xclip..."
@@ -91,6 +104,7 @@ if ! command_exists bat; then
 else
     echo "bat is already installed."
 fi
+add_or_update_bashrc "alias cat=" "alias cat=\"bat --paging=never\""
 add_or_update_bashrc "alias batcat=" "alias batcat=\"bat\""
 add_or_update_bashrc "alias bcat=" "alias bcat=\"bat --paging=never\""
 
@@ -101,9 +115,16 @@ if ! command_exists exa; then
 else
     echo "exa is already installed."
 fi
-add_or_update_bashrc "alias exa=" "alias exa=\"exa\""
-add_or_update_bashrc "alias exal=" "alias exal=\"exa -l\""
-add_or_update_bashrc "alias exaa=" "alias exaa=\"exa -la\""
+
+# Replace or add common ls aliases with exa equivalents
+replace_or_add_ls_alias "ls" "exa"
+replace_or_add_ls_alias "l" "exa -lbF"
+replace_or_add_ls_alias "ll" "exa -lbGF"
+replace_or_add_ls_alias "llm" "exa -lbGd --sort=modified"
+replace_or_add_ls_alias "la" "exa -lbhHigUmuSa --time-style=long-iso --git --color-scale"
+replace_or_add_ls_alias "lx" "exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale"
+replace_or_add_ls_alias "lS" "exa -1"
+replace_or_add_ls_alias "lt" "exa --tree --level=2"
 
 echo "Tool installation and configuration complete."
 echo "Please run 'source ~/.bashrc' to apply the changes to your current session."

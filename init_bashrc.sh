@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Script to initialize bash configurations in .bashrc
+
 echo "Configuring .bashrc with necessary settings..."
 
 # Associative array of environment variables to check in .bashrc
@@ -13,7 +15,8 @@ check_and_prompt_env_var() {
     local var_name=$1
     if ! grep -q "^export $var_name=" ~/.bashrc; then
         # Variable not set in .bashrc, prompt for it
-        read -p "Enter value for $var_name (leave blank to skip): " value
+        echo -n "Enter value for $var_name (leave blank to skip): "
+        read value
         if [ ! -z "$value" ]; then
             echo "export $var_name='$value'" >> ~/.bashrc
             echo "Added $var_name to .bashrc"
@@ -24,7 +27,6 @@ check_and_prompt_env_var() {
         echo "Environment variable $var_name is already set in .bashrc."
     fi
 }
-
 
 # Associative array of aliases to add to .bashrc
 declare -A aliases=(

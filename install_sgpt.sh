@@ -1,6 +1,14 @@
 #!/bin/bash
 
-echo "Fetching the latest release of SGPT..."
+echo "Checking SGPT installation..."
+
+# Check if SGPT is already installed
+if command -v sgpt &> /dev/null; then
+    echo "SGPT is already installed. Skipping installation."
+    exit 0
+fi
+
+echo "SGPT not found. Proceeding with installation..."
 
 VERSION="2.14.1"
 ARCH="amd64"  # Change this to "arm64" or "armhf" if needed

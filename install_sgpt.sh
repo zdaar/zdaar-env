@@ -1,30 +1,39 @@
 #!/bin/bash
 
-# Script to install SGPT from the latest GitHub release
+# Script to install SGPT from a specific GitHub release
 
-echo "Fetching the latest release of SGPT..."
+echo "Installing SGPT..."
 
-release_info=$(curl -s https://api.github.com/repos/tbckr/sgpt/releases/latest)
+# Set the version and architecture
+VERSION="2.14.1"
+ARCH="amd64"  # Change this to "arm64" or "armhf" if needed
 
-case "$(uname -m)" in
-    x86_64)  deb_arch="amd64" ;;
-    arm64)   deb_arch="arm64" ;;
-    armhf)   deb_arch="armhf" ;;
-    *)       echo "Unsupported architecture"; exit 1 ;;
-esac
+# Construct the download URL
+DOWNLOAD_URL="https://github.com/tbckr/sgpt/releases/download/v${VERSION}/sgpt_${VERSION}_${ARCH}.deb"
 
-download_url=$(echo "$release_info" | grep -oP '"browser_download_url": "\K(.*_'$deb_arch'.deb)"' | head -1)
+echo "Downloading SGPT from $DOWNLOAD_URL..."
+curl -L "$DOWNLOAD_URL" -o "sgpt_${VERSION}_${ARCH}.deb"
 
-if [ -z "$download_url" ]; then
-    echo "Failed to find a downloadable .deb package for SGPT."
+if [ $? -ne 0 ]; then
+    echo "Failed to download SGPT package."
     exit 1
 fi
 
-echo "Downloading SGPT from $download_url..."
-curl -L "$download_url" -o "sgpt_latest_$deb_arch.deb"
-
 echo "Installing SGPT..."
-sudo dpkg -i "sgpt_latest_$deb_arch.deb"
-sudo apt-get install -f
+sudo dpkg -i "sgpt_${VERSION}_${ARCH}.deb"
 
-echo "SGPT installation completed."
+if [ $? -ne 0 ]; then
+    echo "Installing dependencies..."
+    sudo apt-get install -f -y
+    
+    echo "Retrying SGPT installation..."
+    sudo dpkg -i "sgpt_${VERSION}_${ARCH}.deb"
+fi
+
+if [ $? -eq 0 ]; then
+    echo "SGPT installation completed successfully."
+    rm "sgpt_${VERSION}_${ARCH}.deb"
+else
+    echo "SGPT installation failed."
+    exit 1
+fi

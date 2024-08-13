@@ -116,9 +116,14 @@ else
     echo "exa is already installed."
 fi
 
-# Simple exa replacements for ls and ll
+# Replace or add common ls aliases with exa equivalents
 replace_or_add_ls_alias "ls" "exa"
 replace_or_add_ls_alias "ll" "exa -lbF --group-directories-first"
+replace_or_add_ls_alias "llm" "exa -lbGd --sort=modified"
+replace_or_add_ls_alias "la" "exa -lbhHigUmuSa --time-style=long-iso --git --color-scale"
+replace_or_add_ls_alias "lx" "exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale"
+replace_or_add_ls_alias "lS" "exa -1"
+replace_or_add_ls_alias "lt" "exa --tree --level=2"
 
 echo "Tool installation and configuration complete."
 echo "Please run 'source ~/.bashrc' to apply the changes to your current session."

@@ -15,16 +15,10 @@ check_and_prompt_env_var() {
     local var_name=$1
     if ! grep -q "^export $var_name=" ~/.bashrc; then
         # Variable not set in .bashrc, prompt for it
-        if [ -t 0 ]; then
-            # Running in an interactive terminal
-            read -p "Enter value for $var_name (leave blank to skip): " value
-        else
-            # Running in a non-interactive environment
-            echo "Non-interactive mode: $var_name will not be set. Set it manually later if needed."
-            return
-        fi
+        echo -n "Enter value for $var_name (leave blank to skip): "
+        read -r value </dev/tty
 
-        if [ ! -z "$value" ]; then
+        if [ -n "$value" ]; then
             echo "export $var_name='$value'" >> ~/.bashrc
             echo "Added $var_name to .bashrc"
         else

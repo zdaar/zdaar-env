@@ -40,10 +40,10 @@ else
     echo "hstr is already installed."
 fi
 
-# Add hstr alias and configuration to .bashrc
-add_alias_to_bashrc 'hh' 'hstr'
+# Add hstr configuration to .bashrc
 add_to_bashrc 'export HSTR_CONFIG=hicolor'
-add_to_bashrc '[ -n "$BASH" ] && source "$( which hstr )"'
+add_to_bashrc 'if [[ $- =~ .*i.* ]]; then bind "'\C-r': '\C-a hstr -- \C-j'"; fi'
+add_alias_to_bashrc 'hh' 'hstr'
 
 # Install ncdu
 if ! command_exists ncdu; then

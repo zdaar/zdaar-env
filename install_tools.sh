@@ -16,15 +16,16 @@ add_or_update_bashrc() {
     fi
 }
 
-# Function to replace or add ls aliases
-replace_or_add_ls_alias() {
+# Function to safely replace or add ls aliases
+safely_replace_or_add_ls_alias() {
     local alias_name="$1"
     local exa_command="$2"
-    if grep -q "alias $alias_name=" ~/.bashrc; then
-        sed -i "s|alias $alias_name=.*|alias $alias_name=\"$exa_command\"|" ~/.bashrc
-        echo "Replaced alias $alias_name with exa equivalent"
+    
+    if grep -qE "^(#[[:space:]]*)?(alias[[:space:]]+)?${alias_name}=" ~/.bashrc; then
+        sed -i "/^#*[[:space:]]*alias[[:space:]]*${alias_name}=/c\alias ${alias_name}=\"${exa_command}\"" ~/.bashrc
+        echo "Updated existing alias $alias_name"
     else
-        echo "alias $alias_name=\"$exa_command\"" >> ~/.bashrc
+        echo "alias ${alias_name}=\"${exa_command}\"" >> ~/.bashrc
         echo "Added new alias $alias_name"
     fi
 }
@@ -117,13 +118,14 @@ else
 fi
 
 # Replace or add common ls aliases with exa equivalents
-replace_or_add_ls_alias "ls" "exa"
-replace_or_add_ls_alias "ll" "exa -lbF --group-directories-first"
-replace_or_add_ls_alias "llm" "exa -lbGd --sort=modified"
-replace_or_add_ls_alias "la" "exa -lbhHigUmuSa --time-style=long-iso --git --color-scale"
-replace_or_add_ls_alias "lx" "exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale"
-replace_or_add_ls_alias "lS" "exa -1"
-replace_or_add_ls_alias "lt" "exa --tree --level=2"
+safely_replace_or_add_ls_alias "ls" "exa"
+safely_replace_or_add_ls_alias "l" "exa -lbF"
+safely_replace_or_add_ls_alias "ll" "exa -lbF --group-directories-first"
+safely_replace_or_add_ls_alias "llm" "exa -lbGd --sort=modified"
+safely_replace_or_add_ls_alias "la" "exa -lbhHigUmuSa --time-style=long-iso --git --color-scale"
+safely_replace_or_add_ls_alias "lx" "exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale"
+safely_replace_or_add_ls_alias "lS" "exa -1"
+safely_replace_or_add_ls_alias "lt" "exa --tree --level=2"
 
 echo "Tool installation and configuration complete."
 echo "Please run 'source ~/.bashrc' to apply the changes to your current session."

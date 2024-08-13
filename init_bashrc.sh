@@ -4,18 +4,20 @@
 
 echo "Configuring .bashrc with necessary settings..."
 
-# Associative array of environment variables to add to .bashrc with initial placeholders
+# Associative array of environment variables to check in .bashrc
 declare -A env_vars=(
     ["OPENAI_API_KEY"]=""  # Placeholder for the OpenAI API key
+    # Add more environment variables here as needed
 )
 
 # Function to check and prompt for environment variables if not already set in .bashrc
 check_and_prompt_env_var() {
     local var_name=$1
     if ! grep -q "^export $var_name=" ~/.bashrc; then
-        # Variable not set, prompt for it
+        # Variable not set in .bashrc, prompt for it
         read -p "Enter value for $var_name: " value
-        env_vars[$var_name]=$value  # Update the associative array with the new value
+        echo "export $var_name='$value'" >> ~/.bashrc
+        echo "Added $var_name to .bashrc"
     else
         echo "Environment variable $var_name is already set in .bashrc."
     fi
@@ -45,17 +47,10 @@ for var_name in "${!env_vars[@]}"; do
     check_and_prompt_env_var "$var_name"
 done
 
-# Inject all collected environment variable values into .bashrc
-for var_name in "${!env_vars[@]}"; do
-    if [ ! -z "${env_vars[$var_name]}" ]; then  # Only add to .bashrc if a value was provided
-        echo "export $var_name='${env_vars[$var_name]}'" >> ~/.bashrc
-    fi
-done
-
 # Apply alias settings
 for name in "${!aliases[@]}"; do
     add_alias "$name" "${aliases[$name]}"
 done
 
 echo "Completed configuration of .bashrc."
-source ~/.bashrc
+echo "To apply changes, please run 'source ~/.bashrc' or start a new terminal session."

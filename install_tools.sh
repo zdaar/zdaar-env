@@ -41,8 +41,12 @@ else
 fi
 
 # Add hstr configuration to .bashrc
-add_to_bashrc 'export HSTR_CONFIG=hicolor'
-add_to_bashrc 'if [[ $- =~ .*i.* ]]; then bind "'\C-r': '\C-a hstr -- \C-j'"; fi'
+add_to_bashrc 'export HSTR_CONFIG=hicolor,raw-history-view'
+add_to_bashrc 'export HSTR_PROMPT="$ "'
+add_to_bashrc 'if [[ $- =~ .*i.* ]]; then'
+add_to_bashrc '    bind "'\C-r': '\C-a hstr -- \C-j'";'
+add_to_bashrc '    export HSTR_TIOCSTI=y'
+add_to_bashrc 'fi'
 add_alias_to_bashrc 'hh' 'hstr'
 
 # Install ncdu

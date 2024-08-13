@@ -99,15 +99,27 @@ else
 fi
 
 # Install and configure bat
-if ! command_exists bat; then
+if ! command_exists bat && ! command_exists batcat; then
     echo "Installing bat..."
     sudo apt-get update && sudo apt-get install -y bat
 else
     echo "bat is already installed."
 fi
-add_or_update_bashrc "alias cat=" "alias cat=\"bat --paging=never\""
-add_or_update_bashrc "alias batcat=" "alias batcat=\"bat\""
-add_or_update_bashrc "alias bcat=" "alias bcat=\"bat --paging=never\""
+
+# Check if the command is 'bat' or 'batcat'
+if command_exists batcat; then
+    BAT_CMD="batcat"
+elif command_exists bat; then
+    BAT_CMD="bat"
+else
+    echo "Error: Neither 'bat' nor 'batcat' command found after installation."
+    exit 1
+fi
+
+# Set up aliases for bat
+add_or_update_bashrc "alias cat=" "alias cat=\"$BAT_CMD --paging=never\""
+add_or_update_bashrc "alias bat=" "alias bat=\"$BAT_CMD\""
+add_or_update_bashrc "alias batcat=" "alias batcat=\"$BAT_CMD\""
 
 # Install and configure exa
 if ! command_exists exa; then

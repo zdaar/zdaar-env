@@ -118,7 +118,6 @@ fi
 
 # Set up aliases for bat
 add_or_update_bashrc "alias cat=" "alias cat=\"$BAT_CMD --paging=never\""
-add_or_update_bashrc "alias bat=" "alias bat=\"$BAT_CMD\""
 add_or_update_bashrc "alias batcat=" "alias batcat=\"$BAT_CMD\""
 
 # Install and configure exa

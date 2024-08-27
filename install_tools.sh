@@ -49,7 +49,6 @@ else
 fi
 add_or_update_bashrc "export HSTR_CONFIG=" "export HSTR_CONFIG=hicolor,raw-history-view"
 add_or_update_bashrc "export HSTR_PROMPT=" "export HSTR_PROMPT=\"$ \""
-#add_or_update_bashrc "bind.*hstr" "if [[ \$- =~ .*i.* ]]; then bind '\"\\C-r\": \"\\C-a hstr -- \\C-j\"'; fi"
 add_or_update_bashrc "export HSTR_TIOCSTI=" "export HSTR_TIOCSTI=y"
 add_or_update_bashrc "alias hh=" "alias hh=\"hstr\""
 
@@ -89,6 +88,8 @@ if ! command_exists fzf; then
 else
     echo "fzf is already installed."
 fi
+# Add fzf configuration
+add_or_update_bashrc "export FZF_DEFAULT_OPTS=" 'export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --margin=1,2 --preview=\"echo {}\" --preview-window=down:3:wrap --color=dark,bg+:-1,hl:#d08770,fg+:#ebcb8b,header:#a3be8c,info:#88c0d0,prompt:#81a1c1,pointer:#bf616a,marker:#d08770"'
 
 # Install tldr
 if ! command_exists tldr; then

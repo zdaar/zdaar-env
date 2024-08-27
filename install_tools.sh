@@ -49,7 +49,7 @@ else
 fi
 add_or_update_bashrc "export HSTR_CONFIG=" "export HSTR_CONFIG=hicolor,raw-history-view"
 add_or_update_bashrc "export HSTR_PROMPT=" "export HSTR_PROMPT=\"$ \""
-add_or_update_bashrc "bind.*hstr" "if [[ \$- =~ .*i.* ]]; then bind '\"\\C-r\": \"\\C-a hstr -- \\C-j\"'; fi"
+#add_or_update_bashrc "bind.*hstr" "if [[ \$- =~ .*i.* ]]; then bind '\"\\C-r\": \"\\C-a hstr -- \\C-j\"'; fi"
 add_or_update_bashrc "export HSTR_TIOCSTI=" "export HSTR_TIOCSTI=y"
 add_or_update_bashrc "alias hh=" "alias hh=\"hstr\""
 

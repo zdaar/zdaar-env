@@ -82,8 +82,10 @@
           "properties": {
             "prefix": "🐍 ",
             "display_mode": "always",
-            "virtual_env": true
-          }
+            "fetch_virtual_env": true,
+            "fetch_version": true
+          },
+          "template": "{{ if .Env.CONDA_DEFAULT_ENV }}{{ .Env.CONDA_DEFAULT_ENV }}{{ else if .Env.VIRTUAL_ENV }}{{ .Env.VIRTUAL_ENV | base }}{{ else }}{{ .Full }}{{ end }} "
         }
       ],
       "type": "prompt"

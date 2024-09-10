@@ -2,7 +2,8 @@
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "blocks": [
     {
-      "type": "rprompt",
+      "type": "prompt",
+      "alignment": "left",
       "segments": [
         {
           "type": "python",
@@ -14,24 +15,6 @@
           },
           "template": "{{ if .Env.CONDA_DEFAULT_ENV }}{{ if ne .Env.CONDA_DEFAULT_ENV \"base\" }}({{ .Env.CONDA_DEFAULT_ENV }}) {{ end }}{{ else if .Env.VIRTUAL_ENV }}({{ .Env.VIRTUAL_ENV | base }}) {{ end }}"
         },
-        {
-          "foreground": "#ff8800",
-          "style": "diamond",
-          "template": "{{ round .PhysicalPercentUsed .Precision }}% ",
-          "type": "sysinfo"
-        },
-        {
-          "foreground": "#ff8800",
-          "style": "diamond",
-          "template": "{{ (div ((sub .PhysicalTotalMemory .PhysicalFreeMemory)|float64) 1073741824.0) }}/{{ (div .PhysicalTotalMemory 1073741824.0) }}GB ",
-          "type": "sysinfo"
-        }
-      ]
-    },
-    {
-      "alignment": "left",
-      "type": "prompt",
-      "segments": [
         {
           "foreground": "#ff8800",
           "properties": {
@@ -85,6 +68,23 @@
           "style": "plain",
           "template": "\u276f ",
           "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "rprompt",
+      "segments": [
+        {
+          "foreground": "#ff8800",
+          "style": "diamond",
+          "template": "{{ round .PhysicalPercentUsed .Precision }}% ",
+          "type": "sysinfo"
+        },
+        {
+          "foreground": "#ff8800",
+          "style": "diamond",
+          "template": "{{ (div ((sub .PhysicalTotalMemory .PhysicalFreeMemory)|float64) 1073741824.0) }}/{{ (div .PhysicalTotalMemory 1073741824.0) }}GB ",
+          "type": "sysinfo"
         }
       ]
     }
